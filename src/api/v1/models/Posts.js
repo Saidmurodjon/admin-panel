@@ -1,16 +1,9 @@
 const mongoose = require("mongoose");
-// Chemist model
-const UploadedFile = new mongoose.Schema({
-  path: String,
-  type: String,
-  size: Number,
-  folder: String,
-  filename: String,
-});
+// Post model
 const Schema = new mongoose.Schema(
   {
-    // title: { type: String, required: true },
-    // text: { type: String, required: true }, //!must  change
+    title: { type: String, required: true },
+    text: { type: String, required: true }, //!must  change
     uploadImage: { type: String },
     isPublished: { type: Boolean, default: false },
   },

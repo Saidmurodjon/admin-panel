@@ -10,8 +10,9 @@ const dropZoneForImport = (props) => {
 
   return (
     <Box flex flexGrow={1} flexDirection="column">
-      <Label>Импорт</Label>
+      <Label>{property.name}</Label>
       <DropZone onChange={handleDropZoneChange} />
+      <br/>
     </Box>
   );
 };

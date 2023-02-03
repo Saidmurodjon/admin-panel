@@ -1,16 +1,7 @@
 const AdminBro = require("admin-bro");
 const AdminBroExpress = require("admin-bro-expressjs");
-const path = require("path");
-// const AdminBroMongoose = require('admin-bro-mongoose')
-const uploadFeature = require("@admin-bro/upload");
-// const mongoose = require('mongoose')
-const mongooseAdminBro = require("@admin-bro/mongoose");
-// AdminBro.registerAdapter(AdminBroMongoose)
 
-// const adminBro = new AdminBro({
-//   databases: [mongoose],
-//   rootPath: '/admin',
-// })
+const mongooseAdminBro = require("@admin-bro/mongoose");
 const {
   ADMIN_EMAIL,
   ADMIN_PASSWORD,
@@ -24,78 +15,14 @@ const ADMIN = {
 };
 // Modeles
 const User = require("../models/User");
-const Post = require("../models/Posts");
 const Contact = require("../models/Contact");
+const Post = require("./uploader/PostUploader");
 AdminBro.registerAdapter(mongooseAdminBro);
-// !
-const {
-  after: passwordAfterHook,
-  before: passwordBeforeHook,
-} = require("./actions/password.hook");
-
-const {
-  after: uploadAfterHook,
-  before: uploadBeforeHook,
-} = require("./actions/upload.image.hook");
-// !
 
 const AdminBroOptions = {
   resources: [
     User,
-    {
-      resource: Post,
-      options: {
-        properties: {
-          uploadImage: {
-            components: {
-              edit: AdminBro.bundle(
-                "../../../components/profil-photo-edit.tsx"
-              ),
-              list: AdminBro.bundle('../../../components/upload-image.list.tsx'),
-            },
-          },
-        },
-        actions: {
-          new: {
-            after: async (response, request, context) => {
-              const modifiedResponse = await passwordAfterHook(
-                response,
-                request,
-                context
-              );
-              return uploadAfterHook(modifiedResponse, request, context);
-            },
-            before: async (request, context) => {
-              const modifiedRequest = await passwordBeforeHook(
-                request,
-                context
-              );
-              return uploadBeforeHook(modifiedRequest, context);
-            },
-          },
-          edit: {
-            after: async (response, request, context) => {
-              const modifiedResponse = await passwordAfterHook(
-                response,
-                request,
-                context
-              );
-              return uploadAfterHook(modifiedResponse, request, context);
-            },
-            before: async (request, context) => {
-              const modifiedRequest = await passwordBeforeHook(
-                request,
-                context
-              );
-              return uploadBeforeHook(modifiedRequest, context);
-            },
-          },
-          show: {
-            isVisible: false,
-          },
-        },
-      },
-    },
+    Post,
     {
       resource: Contact,
       options: {
