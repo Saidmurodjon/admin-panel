@@ -3,11 +3,8 @@ const router = express.Router();
 // const path=require('path')
 
 const users = require("./User");
-// dorilar uchun
-const medicines = require("./Medicine");
-// const contact = require("./Contact");
-// dorixonalar uchun
-const chemists = require("./Chemist");
+const chemists = require("./Posts");
+const contact = require("./Contact");
 const login = require("../auth/Router");
 // const Authentication = require("../middlewares/Authentication");
 // router
@@ -18,6 +15,5 @@ router.use("/login", login);
 // router.use(Authentication);
 router.use("/users", users);
 router.use("/chemists", chemists);
-router.use("/medicines", medicines);
-// router.use("/contact", contact);
+router.use("/contact", contact);
 module.exports = router;

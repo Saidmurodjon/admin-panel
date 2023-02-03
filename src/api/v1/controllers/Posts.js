@@ -1,4 +1,4 @@
-const Model = require("./../models/Chemist");
+const Model = require("../models/Posts");
 // This is chemist model
 module.exports = {
   Get: async function (req, res) {

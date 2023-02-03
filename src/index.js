@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const appRouter = require("./api/v1/routes/Router");
 const admin = require("../src/api/v1/admin/Admin");
 const conexion = require("./config/swagger/db");
@@ -12,6 +13,9 @@ app.use(express.json());
 app.use(cors());
 app.use("/api", appRouter);
 app.use("/admin", admin);
+
+app.use("/uploads", express.static((__dirname, "uploads")));
+app.use("/public", express.static((__dirname, "public")));
 app.listen(PORT, () => {
   console.log(`¡Server UP! en http://localhost:${PORT}/admin`);
 });

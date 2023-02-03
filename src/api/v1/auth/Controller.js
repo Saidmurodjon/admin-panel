@@ -1,5 +1,5 @@
 const UserModel = require("../models/User");
-const ChemistModel = require("../models/Chemist");
+const ChemistModel = require("../models/Posts");
 const jwt = require("jsonwebtoken");
 const { JWT_KEY, JWT_EXPIRES_IN } = require("../../../config/swagger/config");
 module.exports = {
